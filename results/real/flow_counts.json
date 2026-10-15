@@ -1,0 +1,98 @@
+{
+  "N_deaths": 260219,
+  "legacy": {
+    "deaths_file": 260219,
+    "matched": 234118,
+    "unique_matched_file": 231480,
+    "double_matched_across_runs": 2638,
+    "prev_dec_matches": 2907,
+    "linked_current_year": 231211,
+    "deaths_jan_next": 2998
+  },
+  "configs": {
+    "E": {
+      "tau": null,
+      "L": 215104,
+      "U": 45115,
+      "pct": 82.66268028084036,
+      "by_stage": {
+        "P1": 191287,
+        "P2": 20860,
+        "P3": 2957
+      },
+      "proposals": 217543,
+      "after_collapse": 215109,
+      "accepted": 215104,
+      "dropped_death_already_linked": 0,
+      "dropped_birth_already_taken": 5,
+      "deaths_proposed": 215106
+    },
+    "C02": {
+      "tau": 0.2,
+      "L": 234537,
+      "U": 25682,
+      "pct": 90.13062074637132,
+      "by_stage": {
+        "P1": 191287,
+        "CLF": 19433,
+        "P2": 20860,
+        "P3": 2957
+      },
+      "proposals": 237224,
+      "after_collapse": 234545,
+      "accepted": 234537,
+      "dropped_death_already_linked": 2,
+      "dropped_birth_already_taken": 6,
+      "deaths_proposed": 234539
+    },
+    "C03": {
+      "tau": 0.3,
+      "L": 231478,
+      "U": 28741,
+      "pct": 88.95507245819867,
+      "by_stage": {
+        "P3": 2957,
+        "CLF": 16374,
+        "P2": 20860,
+        "P1": 191287
+      },
+      "proposals": 234118,
+      "after_collapse": 231483,
+      "accepted": 231478,
+      "dropped_death_already_linked": 0,
+      "dropped_birth_already_taken": 5,
+      "deaths_proposed": 231480
+    },
+    "C06": {
+      "tau": 0.6,
+      "L": 228312,
+      "U": 31907,
+      "pct": 87.7384049589,
+      "by_stage": {
+        "P2": 20860,
+        "P3": 2957,
+        "P1": 191287,
+        "CLF": 13208
+      },
+      "proposals": 230919,
+      "after_collapse": 228317,
+      "accepted": 228312,
+      "dropped_death_already_linked": 0,
+      "dropped_birth_already_taken": 5,
+      "deaths_proposed": 228314
+    }
+  },
+  "conflict_policy_audit_C03": {
+    "alt_rule": "own-file run before stage",
+    "L_reference": 231478,
+    "L_alternative": 231478,
+    "status_changes": 0,
+    "birth_changes_among_linked_in_both": 0
+  },
+  "overlap_C03": {
+    "deaths_in_two_runs": 2638,
+    "same_birth": 2635,
+    "different_birth": 3,
+    "births_proposed_to_more_than_one_death": 5
+  }
+}

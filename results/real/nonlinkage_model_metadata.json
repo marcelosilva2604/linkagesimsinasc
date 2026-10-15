@@ -1,0 +1,14 @@
+{
+  "n": 260219,
+  "events": 28741,
+  "converged": true,
+  "iterations": 7,
+  "references": {
+    "region": "Center-West",
+    "weight": "1000-1499",
+    "race": "race_1",
+    "place": "Hospital"
+  },
+  "weight_definition": "missing = null/blank; invalid = non-numeric or outside 200-8000 g",
+  "region_definition": "region of occurrence of death (first digit of CODMUNOCOR)"
+}
