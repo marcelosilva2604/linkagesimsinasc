@@ -84,15 +84,18 @@ def main() -> int:
             bad += 1
             continue
         got = sha256(target)
-        if got == r["sha256_study"]:
-            label = "study version      "
-        elif got == r["sha256_published_20261015"]:
-            label = "published 2026-10-15"
+        want = r["sha256_study"] if a.version == "study" else r["sha256_published_20261015"]
+        other = r["sha256_published_20261015"] if a.version == "study" else r["sha256_study"]
+        if got == want:
+            label = "ok (" + a.version + ")" + " " * (13 - len(a.version))
+        elif got == other:
+            label = "OTHER VERSION      "   # a file of the other version is present; delete it to fetch the requested one
+            bad += 1
         else:
             label = "DIFFERS            "
             bad += 1
         print(f"{label} {sysname} {year} {fname} sha256={got[:16]}...", flush=True)
-    print("every file matches a recorded version" if not bad else f"{bad} file(s) missing or unrecognized")
+    print(f"every file matches the {a.version} version" if not bad else f"{bad} file(s) missing, of the other version, or unrecognized")
     return 0 if not bad else 1
 
 

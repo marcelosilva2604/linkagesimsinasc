@@ -18,7 +18,7 @@ Design (all fields exist in both tables; link_only, seed 42):
 Output: outputs/revision/taskE_splink_equal_info_<year>_<tier>_seed42.csv (threshold, greedy and Hungarian).
 No existing file is modified.
 
-Usage: /usr/bin/python3 task_e_splink_equal_info.py <year> [xyear|xyear_estab|full]
+Usage: python3 task_e_splink_equal_info.py <year> [xyear|xyear_estab|full]
 """
 from __future__ import annotations
 

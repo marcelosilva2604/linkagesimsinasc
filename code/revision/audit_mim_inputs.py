@@ -1,5 +1,5 @@
 """Input manifest: input manifest: SHA-256, size and row counts of every input file used by linkage_final.py,
-library versions and parameters. Writes outputs/revision/mim_final/input_manifest.json. Usage: /usr/bin/python3 audit_mim_inputs.py"""
+library versions and parameters. Writes outputs/revision/mim_final/input_manifest.json. Usage: python3 audit_mim_inputs.py"""
 import hashlib, json, platform, sys
 import polars as pl, xgboost, scipy
 import rv_common  # noqa: F401

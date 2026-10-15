@@ -1,13 +1,13 @@
 # Reproducing the real-data results
 
-No microdata are included. The inputs are public files that the script below downloads and checks.
+The repository tree holds no record-level data. The inputs are public files that the script below downloads and checks.
 
 ## Steps
 
 From the repository root, with Python 3.9+ and the packages in `requirements.txt`:
 
 ```
-export LINKAGE_DATA_DIR=./data
+export LINKAGE_DATA_DIR="$PWD/data"
 cd code/revision
 python3 download_inputs.py                                   # 23 files, about 2.6 GB zipped; SHA-256 checked
 python3 extract_neonatal_sim.py --write-dir "$LINKAGE_DATA_DIR/processed"   # neonatal extraction from the general SIM files

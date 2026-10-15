@@ -6,8 +6,7 @@ and files that implement each step. It is a description of the study's procedure
 ## 0. Notation
 
 - `D`: neonatal death records (SIM), one per row; `B`: live birth records (SINASC).
-- A **death record** has `DTNASC` (date of birth), `SEXO`, `CODMUNNATU` (municipality of residence/naturalidade field used
-  in linkage), `CODMUNOCOR` (municipality of occurrence), `CODESTAB`, `PESO`, `IDADEMAE`.
+- A **death record** has `DTNASC` (date of birth), `SEXO`, `CODMUNNATU` (municipality of naturalidade, used in linkage), `CODMUNOCOR` (municipality of occurrence), `CODESTAB`, `PESO`, `IDADEMAE`.
 - A **birth record** has `DTNASC`, `SEXO`, `CODMUNNASC`, `CODESTAB`, `PESO`, `IDADEMAE`.
 - `year`: the SIM file year; a record is identified by `(file year, row position)`.
 
@@ -47,9 +46,9 @@ for each unmatched d:
     for each (d, c) in candidates(d):
         x = comparison vector (seven inputs):
             date state   0 equal | 1 differ by one day | 2 digit swap | 3 other or missing
-            sex state    0 equal | 1 missing | 2 differ
-            municipality 0 birth municipality | 1 occurrence municipality | 2 none
-            weight state 0 equal | 1 within 10 g | 2 equal after rounding to 50 | 3 rounding to 100 | 4 missing | 5 other
+            sex state    0 equal | 1 either value missing or not 1/2 | 2 both valid and different
+            municipality 0 CODMUNNATU equals the birth municipality | 1 CODMUNOCOR equals it | 2 neither
+            weight state 0 equal | 1 differ by at most 10 g | 2 one value equals the other rounded to the nearest 50 g | 3 same, nearest 100 g | 4 either missing | 5 other
             age state    0 equal | 1 differ by one | 2 missing | 3 other
             facility     0 equal | 1 differ | 2 missing
             n_candidates min(|candidates(d)|, 50)

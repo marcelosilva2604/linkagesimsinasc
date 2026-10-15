@@ -9,7 +9,7 @@ Variants (all with the previous-December births, i.e. the same index as the pipe
   sup_full  : sup_xyear + facility code, two municipality fields, date tolerance (+/-1, digit swap), weight rounding
 u probabilities are estimated by random sampling on the training year (seed 42); m from the label column.
 Output: outputs/revision/taskG_splink_<variant>_<year>_calibrated_seed42.csv
-Usage: /usr/bin/python3 task_g_splink_supervised.py <variant> <year> [year ...]
+Usage: python3 task_g_splink_supervised.py <variant> <year> [year ...]
 """
 from __future__ import annotations
 

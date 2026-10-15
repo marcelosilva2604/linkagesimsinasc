@@ -20,7 +20,7 @@ describes the linkage yield and the composition of the deaths left unlinked, and
 
 ## What is not here
 
-SINASC and SIM microdata (public, from DATASUS) are not redistributed, and no record-level output is included. To run the code, follow `code/REPRODUCE.md`: `download_inputs.py` fetches the public files and checks their hashes.
+No record-level output of the study is included. The public input files are downloaded from their publisher; the four files that the publisher replaced after the study download are attached unchanged to the release `inputs-2025-10`. To run the code, follow `code/REPRODUCE.md`: `download_inputs.py` fetches the public files and checks their hashes.
 
 ## How to read the results
 

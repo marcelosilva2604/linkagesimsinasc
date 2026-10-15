@@ -14,7 +14,7 @@ values within the same group and year. Agreement is descriptive: it does not ide
 with the linkage keys and fill quality differs between stages (for example, no exact-pass pair has a missing weight).
 
 Output: outputs/revision/taskF_concordance_<years>.csv
-Usage: /usr/bin/python3 task_f_real_concordance.py [year ...]   (default 2014-2024)
+Usage: python3 task_f_real_concordance.py [year ...]   (default 2014-2024)
 """
 from __future__ import annotations
 

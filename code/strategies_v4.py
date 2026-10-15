@@ -8,8 +8,8 @@ Architecture (ablation stages for the paper):
         pass for residuals (DTNASC +/-1 day or day-digit transposition, PESO
         +/-10 g or rounding to 50/100 g, IDADEMAE +/-1, CODMUNNATU/OCOR
         interchangeable), accepted only when the candidate is UNIQUE.
-  v4.1  + XGBoost pair classifier scoring ambiguous/residual candidates
-        (trained on unambiguous exact matches vs sampled non-pairs).
+  v4.1  + XGBoost pair classifier scoring the candidates (trained on the
+        synthetic reference of 2014, where the true pairs are known).
   v4.2  + globally optimal 1:1 assignment (Hungarian) within blocks instead
         of greedy first-match.
 

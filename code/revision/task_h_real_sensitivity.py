@@ -5,7 +5,7 @@ Input: outputs/revision/mim_final/death_linkage_{E,C02,C03,C06}.parquet (from li
 Configurations: E (exact passes only), C02/C03/C06 (full procedure at tau 0.2/0.3/0.6); C03 is the reference.
 Nothing is retrained or recalibrated; this does not estimate accuracy.
 
-Outputs (outputs/revision/mim_final/): sensitivity_overall.csv, sensitivity_year.csv, sensitivity_strata.csv,
+Outputs (outputs/revision/mim_final/): sensitivity_overall.csv, sensitivity_strata.csv,
 sensitivity_transitions.csv, composition_C03.csv.
 """
 from __future__ import annotations

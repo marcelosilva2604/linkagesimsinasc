@@ -24,7 +24,7 @@ This is an operational rule, not evidence that the prioritized pair is correct.
 
 Configurations: E (P1-P3 only), C02, C03 (reference), C06 (classifier at tau 0.2, 0.3, 0.6).
 
-Writes only under outputs/revision/mim_final/. Usage: /usr/bin/python3 linkage_final.py
+Writes only under outputs/revision/mim_final/. Usage: python3 linkage_final.py
 """
 
 from __future__ import annotations
@@ -136,11 +136,13 @@ def consolidate(runs: pl.DataFrame, tau: float | None, own_first: bool = False) 
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    model = xgb.XGBClassifier()
-    model.load_model(MODEL_PATH)
     legacy_path = REV.parent / "v4_full" / "stats_all.json"
     if not legacy_path.exists():
-        raise SystemExit(f"required comparison input missing: {legacy_path} (outputs of run_v4_full.py)")
+        raise SystemExit(f"required comparison input missing: {legacy_path} (copy results/legacy/stats_all.json there)")
+    if not MODEL_PATH.exists():
+        raise SystemExit(f"frozen classifier missing: {MODEL_PATH} (copy model/xgb_pairs.json there)")
+    model = xgb.XGBClassifier()
+    model.load_model(MODEL_PATH)
     legacy = {s["year"]: s for s in json.load(open(legacy_path))}
     runs, checks = [], []
     for y in YEARS:
