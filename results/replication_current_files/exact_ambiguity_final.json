@@ -1,0 +1,26 @@
+{
+  "final_exact_pairs": 215120,
+  "not_found_in_audit": 0,
+  "ambiguous_at_match": 4720,
+  "birth_changes_reversed_index": 5068,
+  "birth_changes_shuffled_deaths": 343,
+  "unmatched_reversed_index": 1,
+  "unmatched_shuffled_deaths": 92,
+  "exact_matches_base_runs": 217559,
+  "exact_matches_reversed_runs": 217559,
+  "exact_matches_shuffled_runs": 217558,
+  "by_pass": {
+    "P1": [
+      191302,
+      4250
+    ],
+    "P2": [
+      20859,
+      448
+    ],
+    "P3": [
+      2959,
+      22
+    ]
+  }
+}

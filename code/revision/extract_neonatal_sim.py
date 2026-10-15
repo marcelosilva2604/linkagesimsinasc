@@ -19,13 +19,58 @@ from rv_common import REV
 from common import PROCESSED, RAW
 
 OUT = REV / "mim_final"
+# Layouts of the general SIM files as published by DATASUS. The files of some years carry no header line; the column
+# order of those files equals the order below (87 fields in the layout of 2021, 86 fields in the layout of 2023 and 2024).
+HEADER_2021 = [
+    "ORIGEM", "TIPOBITO", "DTOBITO", "HORAOBITO", "NATURAL", "CODMUNNATU", "DTNASC", "IDADE", "SEXO",
+    "RACACOR", "ESTCIV", "ESC", "ESC2010", "SERIESCFAL", "OCUP", "CODMUNRES", "LOCOCOR", "CODESTAB",
+    "ESTABDESCR", "CODMUNOCOR", "IDADEMAE", "ESCMAE", "ESCMAE2010", "SERIESCMAE", "OCUPMAE", "QTDFILVIVO",
+    "QTDFILMORT", "GRAVIDEZ", "SEMAGESTAC", "GESTACAO", "PARTO", "OBITOPARTO", "PESO", "TPMORTEOCO",
+    "OBITOGRAV", "OBITOPUERP", "ASSISTMED", "EXAME", "CIRURGIA", "NECROPSIA", "LINHAA", "LINHAB", "LINHAC",
+    "LINHAD", "LINHAII", "CAUSABAS", "CB_PRE", "COMUNSVOIM", "DTATESTADO", "CIRCOBITO", "ACIDTRAB", "FONTE",
+    "NUMEROLOTE", "TPPOS", "DTINVESTIG", "CAUSABAS_O", "DTCADASTRO", "ATESTANTE", "STCODIFICA", "CODIFICADO",
+    "VERSAOSIST", "VERSAOSCB", "FONTEINV", "DTRECEBIM", "ATESTADO", "DTRECORIGA", "CAUSAMAT", "ESCMAEAGR1",
+    "ESCFALAGR1", "STDOEPIDEM", "STDONOVA", "DIFDATA", "NUDIASOBCO", "NUDIASOBIN", "DTCADINV", "TPOBITOCOR",
+    "DTCONINV", "FONTES", "TPRESGINFO", "TPNIVELINV", "NUDIASINF", "DTCADINF", "MORTEPARTO", "DTCONCASO",
+    "FONTESINF", "ALTCAUSA", "CONTADOR",
+]
+
+HEADER_2024 = [
+    "CONTADOR", "ORIGEM", "TIPOBITO", "DTOBITO", "HORAOBITO", "NATURAL", "CODMUNNATU", "DTNASC", "IDADE",
+    "SEXO", "RACACOR", "ESTCIV", "ESC", "ESC2010", "SERIESCFAL", "OCUP", "CODMUNRES", "LOCOCOR", "CODESTAB",
+    "CODMUNOCOR", "IDADEMAE", "ESCMAE", "ESCMAE2010", "SERIESCMAE", "OCUPMAE", "QTDFILVIVO", "QTDFILMORT",
+    "GRAVIDEZ", "SEMAGESTAC", "GESTACAO", "PARTO", "OBITOPARTO", "PESO", "TPMORTEOCO", "OBITOGRAV",
+    "OBITOPUERP", "ASSISTMED", "EXAME", "CIRURGIA", "NECROPSIA", "LINHAA", "LINHAB", "LINHAC", "LINHAD",
+    "LINHAII", "CAUSABAS", "CB_PRE", "COMUNSVOIM", "DTATESTADO", "CIRCOBITO", "ACIDTRAB", "FONTE",
+    "NUMEROLOTE", "DTINVESTIG", "DTCADASTRO", "ATESTANTE", "STCODIFICA", "CODIFICADO", "VERSAOSIST",
+    "VERSAOSCB", "FONTEINV", "DTRECEBIM", "ATESTADO", "DTRECORIGA", "OPOR_DO", "CAUSAMAT", "ESCMAEAGR1",
+    "ESCFALAGR1", "STDOEPIDEM", "STDONOVA", "DIFDATA", "NUDIASOBCO", "DTCADINV", "TPOBITOCOR", "DTCONINV",
+    "FONTES", "TPRESGINFO", "TPNIVELINV", "DTCADINF", "MORTEPARTO", "DTCONCASO", "ALTCAUSA", "CAUSABAS_O",
+    "TPPOS", "TP_ALTERA", "CB_ALT", "COVID_CLAS", "MAT_CLAS",
+]
+
+DATE_COLUMNS = ["DTOBITO", "DTNASC"]
 KEY = ["DTOBITO", "DTNASC", "SEXO", "CAUSABAS", "CODMUNOCOR", "CODMUNRES", "IDADEMAE", "SEMAGESTAC"]
 
 
 def read_general(path: Path) -> pl.DataFrame:
+    """Reads a general SIM file of any published layout into the layout of the study: uppercase column names, dates as
+    ddmmyyyy (files of some years use dd-mm-yyyy), and a header assigned by position when the file has none."""
     head = path.open(encoding="latin-1").readline()
     sep = ";" if head.count(";") > head.count(",") else ","
-    return pl.read_csv(path, separator=sep, infer_schema_length=0, encoding="utf8-lossy")
+    first = [c.strip('"') for c in head.rstrip("\n").split(sep)]
+    has_header = not first[0].isdigit()
+    df = pl.read_csv(path, separator=sep, infer_schema_length=0, encoding="utf8-lossy", has_header=has_header)
+    if has_header:
+        df = df.rename({c: c.strip('"').upper() for c in df.columns})
+    else:
+        names = HEADER_2021 if df.width == len(HEADER_2021) else HEADER_2024[:df.width]
+        if df.width not in (len(HEADER_2021), len(HEADER_2024) - 2):
+            raise ValueError(f"{path.name}: unexpected number of fields ({df.width}) for a file without header")
+        df = df.rename(dict(zip(df.columns, names)))
+    for c in DATE_COLUMNS:
+        df = df.with_columns(pl.col(c).str.replace_all("-", "").alias(c))
+    return df
 
 
 def neonatal(df: pl.DataFrame) -> pl.DataFrame:
@@ -66,7 +111,7 @@ def main():
                      "rebuilt_neonatal": e.height, "preserved_extract": n_pres,
                      "same_count": (e.height == n_pres) if n_pres is not None else None,
                      "positions_agreeing_on_8_fields": same})
-        print(rows[-1]["year"], e.height, p.height, same, flush=True)
+        print(y, e.height, n_pres, same, flush=True)
         if write_dir is not None:
             write_dir.mkdir(parents=True, exist_ok=True)
             e.write_csv(write_dir / f"SIM_neonatal_{y}.csv")

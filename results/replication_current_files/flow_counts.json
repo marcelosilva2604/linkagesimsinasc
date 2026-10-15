@@ -1,0 +1,199 @@
+{
+  "per_run_check": [
+    {
+      "year": 2014,
+      "run_deaths": 26791,
+      "file_deaths": 26509,
+      "matched_C03": 22957,
+      "legacy_matched": 22957,
+      "ok": true,
+      "candidate_pairs": 45245
+    },
+    {
+      "year": 2015,
+      "run_deaths": 26649,
+      "file_deaths": 26334,
+      "matched_C03": 23295,
+      "legacy_matched": 23295,
+      "ok": true,
+      "candidate_pairs": 51447
+    },
+    {
+      "year": 2016,
+      "run_deaths": 25251,
+      "file_deaths": 24973,
+      "matched_C03": 22290,
+      "legacy_matched": 22290,
+      "ok": true,
+      "candidate_pairs": 45126
+    },
+    {
+      "year": 2017,
+      "run_deaths": 25782,
+      "file_deaths": 25463,
+      "matched_C03": 22883,
+      "legacy_matched": 22883,
+      "ok": true,
+      "candidate_pairs": 45994
+    },
+    {
+      "year": 2018,
+      "run_deaths": 25328,
+      "file_deaths": 25004,
+      "matched_C03": 22634,
+      "legacy_matched": 22634,
+      "ok": true,
+      "candidate_pairs": 45483
+    },
+    {
+      "year": 2019,
+      "run_deaths": 24630,
+      "file_deaths": 24317,
+      "matched_C03": 22121,
+      "legacy_matched": 22121,
+      "ok": true,
+      "candidate_pairs": 42510
+    },
+    {
+      "year": 2020,
+      "run_deaths": 22721,
+      "file_deaths": 22405,
+      "matched_C03": 20273,
+      "legacy_matched": 20273,
+      "ok": true,
+      "candidate_pairs": 31363
+    },
+    {
+      "year": 2021,
+      "run_deaths": 22616,
+      "file_deaths": 22326,
+      "matched_C03": 20200,
+      "legacy_matched": 20200,
+      "ok": true,
+      "candidate_pairs": 35820
+    },
+    {
+      "year": 2022,
+      "run_deaths": 21875,
+      "file_deaths": 21576,
+      "matched_C03": 19760,
+      "legacy_matched": 19760,
+      "ok": true,
+      "candidate_pairs": 32173
+    },
+    {
+      "year": 2023,
+      "run_deaths": 21723,
+      "file_deaths": 21461,
+      "matched_C03": 19698,
+      "legacy_matched": 19698,
+      "ok": true,
+      "candidate_pairs": 33338
+    },
+    {
+      "year": 2024,
+      "run_deaths": 19851,
+      "file_deaths": 19851,
+      "matched_C03": 18023,
+      "legacy_matched": 18007,
+      "ok": false,
+      "candidate_pairs": 25958
+    }
+  ],
+  "N_deaths": 260219,
+  "legacy": {
+    "deaths_file": 260219,
+    "matched": 234118,
+    "unique_matched_file": 231480,
+    "double_matched_across_runs": 2638,
+    "prev_dec_matches": 2907,
+    "linked_current_year": 231211,
+    "deaths_jan_next": 2998
+  },
+  "configs": {
+    "E": {
+      "tau": null,
+      "L": 215120,
+      "U": 45099,
+      "pct": 82.66882894792464,
+      "by_stage": {
+        "P3": 2959,
+        "P2": 20859,
+        "P1": 191302
+      },
+      "proposals": 217559,
+      "after_collapse": 215125,
+      "accepted": 215120,
+      "dropped_death_already_linked": 0,
+      "dropped_birth_already_taken": 5,
+      "deaths_proposed": 215122
+    },
+    "C02": {
+      "tau": 0.2,
+      "L": 234557,
+      "U": 25662,
+      "pct": 90.13830658022665,
+      "by_stage": {
+        "P2": 20859,
+        "CLF": 19437,
+        "P1": 191302,
+        "P3": 2959
+      },
+      "proposals": 237244,
+      "after_collapse": 234565,
+      "accepted": 234557,
+      "dropped_death_already_linked": 2,
+      "dropped_birth_already_taken": 6,
+      "deaths_proposed": 234559
+    },
+    "C03": {
+      "tau": 0.3,
+      "L": 231494,
+      "U": 28725,
+      "pct": 88.96122112528293,
+      "by_stage": {
+        "P3": 2959,
+        "CLF": 16374,
+        "P1": 191302,
+        "P2": 20859
+      },
+      "proposals": 234134,
+      "after_collapse": 231499,
+      "accepted": 231494,
+      "dropped_death_already_linked": 0,
+      "dropped_birth_already_taken": 5,
+      "deaths_proposed": 231496
+    },
+    "C06": {
+      "tau": 0.6,
+      "L": 228329,
+      "U": 31890,
+      "pct": 87.74493791767703,
+      "by_stage": {
+        "CLF": 13209,
+        "P2": 20859,
+        "P3": 2959,
+        "P1": 191302
+      },
+      "proposals": 230936,
+      "after_collapse": 228334,
+      "accepted": 228329,
+      "dropped_death_already_linked": 0,
+      "dropped_birth_already_taken": 5,
+      "deaths_proposed": 228331
+    }
+  },
+  "conflict_policy_audit_C03": {
+    "alt_rule": "own-file run before stage",
+    "L_reference": 231494,
+    "L_alternative": 231494,
+    "status_changes": 0,
+    "birth_changes_among_linked_in_both": 0
+  },
+  "overlap_C03": {
+    "deaths_in_two_runs": 2638,
+    "same_birth": 2635,
+    "different_birth": 3,
+    "births_proposed_to_more_than_one_death": 5
+  }
+}

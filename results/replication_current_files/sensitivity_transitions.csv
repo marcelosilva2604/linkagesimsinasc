@@ -1,0 +1,5 @@
+config,unlinked_in_both,gains,losses,same_birth,different_birth,status_change_pct_of_N,birth_change_pct_of_both_linked,any_change_pct_of_N,check_L_diff
+E,28725,0,16374,215120,0,6.292392177358302,0.0,6.292392177358302,true
+C02,25662,3063,0,231494,0,1.1770854549437204,0.0,1.1770854549437204,true
+C03,28725,0,0,231494,0,0.0,0.0,0.0,true
+C06,28725,0,3165,228329,0,1.2162832076059011,0.0,1.2162832076059011,true

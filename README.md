@@ -15,12 +15,12 @@ describes the linkage yield and the composition of the deaths left unlinked, and
 | `03_synthetic_evaluation.ipynb` | Simulation-based comparison of strategies (baseline, procedure, Fellegi-Sunter variants) on a synthetic reference with pairs known by construction. Reads `results/synthetic/`. |
 | `PSEUDOCODE.md` | The procedure and each analysis step in pseudocode, with the file that implements it. |
 | `code/` | Python code: extraction of neonatal deaths from the general SIM files, linkage, consolidation, sensitivity analyses, audits, synthetic reference, and comparison with Fellegi-Sunter linkage. See `code/REPRODUCE.md`. |
-| `results/` | Aggregate results only. |
+| `results/` | Aggregate results only; `results/replication_current_files/` holds the results of running the code from the download step on the files published on 2026-10-15. |
 | `model/xgb_pairs.json` | The frozen pair classifier used in the study. |
 
 ## What is not here
 
-SINASC and SIM microdata (public, from DATASUS) are not redistributed, and no record-level output is included. To run the code, download the public files and follow `code/REPRODUCE.md`.
+SINASC and SIM microdata (public, from DATASUS) are not redistributed, and no record-level output is included. To run the code, follow `code/REPRODUCE.md`: `download_inputs.py` fetches the public files and checks their hashes.
 
 ## How to read the results
 

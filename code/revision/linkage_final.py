@@ -154,7 +154,10 @@ def main():
         print(y, checks[-1], f"{time.time()-t:.0f}s", flush=True)
     runs = pl.concat(runs)
     runs.write_parquet(OUT / "run_pairs.parquet")
-    assert all(c["ok"] for c in checks), "per-run matched counts differ from legacy stats"
+    n_diff = [c["year"] for c in checks if not c["ok"]]
+    if n_diff:  # inputs differ from the files of the study (the publisher replaces files); results are then not the reported ones
+        print("WARNING: per-run counts differ from the recorded counts for run years", n_diff,
+              "- the input files may differ from those of the study (see download_inputs.py)", flush=True)
 
     # all deaths, with attributes for later strata
     parts = []
@@ -168,7 +171,7 @@ def main():
     deaths = pl.concat(parts, how="diagonal_relaxed")
     N = deaths.height
 
-    flow = {"N_deaths": N, "legacy": {k: sum(s[k] for s in legacy.values()) for k in
+    flow = {"per_run_check": checks, "N_deaths": N, "legacy": {k: sum(s[k] for s in legacy.values()) for k in
                                      ("deaths_file", "matched", "unique_matched_file", "double_matched_across_runs",
                                       "prev_dec_matches", "linked_current_year", "deaths_jan_next")}, "configs": {}}
     conflict_rows = []

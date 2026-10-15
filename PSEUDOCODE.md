@@ -15,7 +15,7 @@ and files that implement each step. It is a description of the study's procedure
 
 ```
 for each year y in 2014..2024:
-    G <- read general mortality file of y
+    G <- read general mortality file of y     # three published layouts are accepted; dates written as ddmmyyyy
     D_y <- records of G with 0 <= (date of death - date of birth) <= 27 days     # file order kept
     compare D_y with the preserved extract: record count, and agreement by position on eight fields
 ```
