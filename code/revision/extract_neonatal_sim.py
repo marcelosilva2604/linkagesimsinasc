@@ -95,6 +95,7 @@ def sha(path: Path) -> str:
 
 def main():
     write_dir = Path(sys.argv[sys.argv.index("--write-dir") + 1]) if "--write-dir" in sys.argv else None
+    OUT.mkdir(parents=True, exist_ok=True)
     rows = []
     for y in range(2014, 2025):
         src = RAW / "SIM" / f"Mortalidade_Geral_{y}.csv"

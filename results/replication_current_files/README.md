@@ -5,7 +5,8 @@ publisher replaced four of the 23 files (SIM 2022, 2023, 2024 and SINASC 2024; s
 of 2022 and 2023 now have no header line and use dd-mm-yyyy dates; `code/revision/extract_neonatal_sim.py` reads both layouts.
 
 This folder holds aggregate results of running the code of this repository from the download step on the files as
-published on 2026-10-15 (no other input).
+published on 2026-10-15 (`download_inputs.py --version published`). With the default `--version study` the numbers are
+those of the study (column 2).
 
 | Quantity | Study files | Files of 2026-10-15 |
 |---|---:|---:|

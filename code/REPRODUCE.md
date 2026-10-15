@@ -9,7 +9,7 @@ From the repository root, with Python 3.9+ and the packages in `requirements.txt
 ```
 export LINKAGE_DATA_DIR=./data
 cd code/revision
-python3 download_inputs.py                                   # 23 files, about 2.4 GB zipped; SHA-256 checked
+python3 download_inputs.py                                   # 23 files, about 2.6 GB zipped; SHA-256 checked
 python3 extract_neonatal_sim.py --write-dir "$LINKAGE_DATA_DIR/processed"   # neonatal extraction from the general SIM files
 mkdir -p ../../outputs/models ../../outputs/v4_full
 cp ../../model/xgb_pairs.json ../../outputs/models/
@@ -27,12 +27,14 @@ The eleven annual runs take about 90 seconds on an Apple M4 Max; the extraction 
 
 `code/input_hashes.csv` lists, for each of the 23 files, the SHA-256 of the version used in the study and of the version
 published on 2026-10-15. Four files were replaced by the publisher after the study files were downloaded (SIM 2022, 2023, 2024
-and SINASC 2024). The publisher does not keep earlier versions.
+and SINASC 2024), and the publisher does not keep earlier versions. The study versions of those four files (public data,
+unchanged) are attached to the release `inputs-2025-10` of this repository.
 
-- With the files of 2026-10-15 (what `download_inputs.py` fetches today) the pipeline gives 231,494 linked deaths of
-  260,219 (88.96%), against 231,478 (88.96%) with the study files; see `results/replication_current_files/`. The 16 additional
-  pairs are in exact passes of the 2024 run.
-- With the 19 unchanged files, all runs up to 2023 reproduce the study counts exactly.
+- Default (`download_inputs.py --version study`): 19 files from the publisher and the four study versions from the release.
+  Every file matches `sha256_study`, and the pipeline gives the reported numbers: 231,478 linked deaths of 260,219 (88.96%),
+  and pair tables identical to those of the study.
+- `--version published`: the publisher's files of 2026-10-15. The pipeline then gives 231,494 linked deaths (88.96%);
+  see `results/replication_current_files/`. The 16 additional pairs are in exact passes of the 2024 run.
 
 `extract_neonatal_sim.py` reads the three layouts found in the general SIM files (header with ORIGEM first; no header, 87 or
 86 fields; header with CONTADOR first) and writes dates as ddmmyyyy. The neonatal rule is date of death minus date of birth of
@@ -42,8 +44,10 @@ and SINASC 2024). The publisher does not keep earlier versions.
 
 - Extraction: same record count in every year and same order on eight fields as the study extracts (study files), and the same
   260,219 records on the files of 2026-10-15.
-- Linkage on the rebuilt extracts from the study files gave identical pair tables to the study run (same machine, by the author).
-- The whole procedure above was then run from an empty folder on the files of 2026-10-15.
+- The whole procedure above was run from an empty folder with `--version study`: all 23 hashes matched, and the run pairs,
+  accepted pairs of the four configurations, and death-level linkage were identical to the tables of the study.
+- It was also run from an empty folder with `--version published` (results in `results/replication_current_files/`).
+- Both runs were done by the author on one machine (Apple M4 Max).
 
 ## Limits
 

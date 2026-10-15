@@ -10,8 +10,10 @@ Layout written under DEST (default: LINKAGE_DATA_DIR or ./data):
 
 The publisher replaces files from time to time. ../input_hashes.csv records two hashes per file: the version used in the
 study (sha256_study) and the version published on 2026-10-15 (sha256_published_20261015). Four files differ between the two
-(SIM 2022, 2023, 2024 and SINASC 2024); results/replication_current_files/ gives the numbers obtained with the later
-versions. A file matching neither hash is reported as DIFFERS and kept.
+(SIM 2022, 2023, 2024 and SINASC 2024). By default (--version study) those four are fetched from the copy of the study
+versions attached to the repository release `inputs-2025-10` (public data, redistributed unchanged), so that all 23 files
+are the ones analyzed; with --version published the publisher's current files are fetched, and
+results/replication_current_files/ gives the numbers obtained with them. A file matching neither hash is reported as DIFFERS.
 
 Usage: python3 download_inputs.py [--dest DIR] [--years 2014 2015 ...] [--system SIM|SINASC] [--check-only]
 """
@@ -29,6 +31,7 @@ import zipfile
 from pathlib import Path
 
 BASE = "https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br"
+MIRROR = "https://github.com/marcelosilva2604/linkagesimsinasc/releases/download/inputs-2025-10"
 HASHES = Path(__file__).resolve().parent.parent / "input_hashes.csv"
 
 
@@ -40,7 +43,10 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def url(system: str, year: int) -> str:
+def url(system: str, year: int, mirror: bool = False) -> str:
+    if mirror:
+        stem = f"Mortalidade_Geral_{year}" if system == "SIM" else f"SINASC_{year}"
+        return f"{MIRROR}/{stem}_study_version.zip"
     if system == "SIM":
         return f"{BASE}/SIM/csv/Mortalidade_Geral_{year}_csv.zip"
     return f"{BASE}/SINASC/csv/SINASC_{year}_csv.zip"
@@ -52,6 +58,8 @@ def main() -> int:
     ap.add_argument("--years", type=int, nargs="*")
     ap.add_argument("--system", choices=["SIM", "SINASC"])
     ap.add_argument("--check-only", action="store_true", help="only hash files already in DEST")
+    ap.add_argument("--version", choices=["study", "published"], default="study",
+                    help="study: the four replaced files come from the repository release; published: publisher's current files")
     a = ap.parse_args()
     dest = Path(a.dest)
     todo = [r for r in csv.DictReader(HASHES.open())
@@ -64,8 +72,9 @@ def main() -> int:
             target.parent.mkdir(parents=True, exist_ok=True)
             with tempfile.TemporaryDirectory() as tmp:
                 z = Path(tmp) / "f.zip"
-                print(f"download {url(sysname, year)}", flush=True)
-                urllib.request.urlretrieve(url(sysname, year), z)
+                use_mirror = a.version == "study" and r["same"] == "no"
+                print(f"download {url(sysname, year, use_mirror)}", flush=True)
+                urllib.request.urlretrieve(url(sysname, year, use_mirror), z)
                 with zipfile.ZipFile(z) as zf:
                     members = [m for m in zf.namelist() if m.lower().endswith(".csv")]
                     with zf.open(members[0]) as src, target.open("wb") as out:
