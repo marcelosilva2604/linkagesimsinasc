@@ -1,0 +1,14 @@
+{
+  "year": 2014,
+  "tier": "calibrated",
+  "synthetic_deaths": 26509,
+  "exact_pass_matches_removed": 21372,
+  "candidate_pairs": 66849,
+  "positives": 2561,
+  "model_file": "model/xgb_pairs.json",
+  "model_sha256": "051052f433412a4e107739230abb122b4aa39a07d710c896af6bea5a5c5dc831",
+  "boosted_rounds": 300,
+  "max_tree_depth_observed": 5,
+  "hyperparameters_source": "v4ml.train() source: n_estimators 300, max_depth 5, learning_rate 0.1, subsample 0.9, colsample_bytree 0.9, random_state 42; the saved model file does not store them (a reload shows defaults)",
+  "note": "reconstruction with the same functions; the original training log was not saved"
+}

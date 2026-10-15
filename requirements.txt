@@ -3,4 +3,7 @@ pandas>=2.0
 scipy>=1.13
 matplotlib>=3.8
 jupyter
-xgboost>=2.1  # optional, only to load the frozen classifier
+polars>=1.0
+xgboost>=2.1
+statsmodels>=0.14
+splink>=4.0      # only for the Fellegi-Sunter comparison

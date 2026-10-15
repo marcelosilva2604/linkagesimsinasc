@@ -1,0 +1,5 @@
+plurality_missing,weight_missing,n,n_unlinked,pct_unlinked
+True,True,9583,9172,95.71115517061463
+False,True,5681,2379,41.87643020594966
+True,False,1617,259,16.017316017316016
+False,False,243338,16931,6.9578117679934905
